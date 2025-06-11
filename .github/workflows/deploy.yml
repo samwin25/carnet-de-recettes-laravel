@@ -15,6 +15,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      - name: Create .env file from secret
+        run: echo "${{ secrets.LARAVEL_ENV }}" > .env
+
       - name: Log in to GHCR
         run: echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
 

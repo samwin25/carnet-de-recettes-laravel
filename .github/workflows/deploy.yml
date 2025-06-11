@@ -104,3 +104,16 @@ jobs:
 
             echo "❌ L'application ne répond pas après 10 tentatives."
             exit 1
+
+      - name: Debug Laravel logs
+        if: failure()
+        run: |
+          echo "🔍 Vérification des logs Laravel..."
+          docker compose logs app --tail=50
+          docker compose logs nginx --tail=30
+          docker compose exec app cat storage/logs/laravel.log | tail -30 || true
+          docker compose ps
+      - name: Test HTTP response
+        run: |
+          echo "🌐 Test de la réponse HTTP..."
+            curl -s http://localhost:9010/test.html || true

@@ -13,6 +13,7 @@ services:
       - ./storage:/var/www/storage
       - ./bootstrap/cache:/var/www/bootstrap/cache
       - carnet-app-public:/var/www/public
+      - .env:/var/www/.env
     depends_on:
       - db
     environment:
